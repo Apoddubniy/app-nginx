@@ -38,7 +38,8 @@ jobs:
           push: true
 
   deploy:
-
+    runs-on: ubuntu-latest
+    steps:
       - name: Build and deploy
         id: tagiamge
         if: github.ref_name == 'tag'
