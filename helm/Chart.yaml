@@ -1,6 +1,6 @@
 apiVersion: v2
 appVersion: 1.23.0
 description: Deploy nginx with static pages
-name: nginx-static
+name: app-nginx
 type: application
 version: 0.1.3

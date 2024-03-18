@@ -34,4 +34,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/test-app:${{ github.sha }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/test-app:$(echo ${GITHUB_SHA} | cut -c1-8)
