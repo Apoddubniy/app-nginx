@@ -2,8 +2,6 @@ on:
   push:
     branches:
       - "main"
-    tags:
-      - 'v*.*.*'
 
 jobs:
   build:
@@ -37,33 +35,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ github.sha }}
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build and deploy
-        id: tagiamge
-        if: github.ref_name == 'tags'
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-
-      - name: Add kubeconfig
-        uses: azure/k8s-set-context@v4
-        with:
-           method: kubeconfig
-           kubeconfig: ${{ secrets.KUBE_CONFIg }}
-
-      - name: helm deploy
-        uses: koslib/helm-eks-action@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIg }}
-        with:
-          command: |
-            helm version
-            kubectl version
-            kubectl cluster-info 
-            helm upgrade app-nginx --install --wait --set image.tag=${{ steps.meta.outputs.tags }} 
