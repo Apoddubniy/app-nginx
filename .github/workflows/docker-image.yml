@@ -51,7 +51,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
 
       - name: Add kubeconfig
-        needs: ${{ steps.tagiamge.outputs.tags }}
         uses: azure/k8s-set-context@v4
         with:
            method: kubeconfig
@@ -59,7 +58,6 @@ jobs:
 
       - name: helm deploy
         uses: koslib/helm-eks-action@master
-        needs: ${{ steps.tagiamge.outputs.tags }}
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIg }}
         with:
