@@ -5,7 +5,6 @@ namespace: test-app
 image:
   repository: avpoddubniy/test-app
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
   digest: sha256:42dbcf86c8f2d42cc60d810c09b554137f82e046198e36f20cc88d3d150d8d40
   port: 80
