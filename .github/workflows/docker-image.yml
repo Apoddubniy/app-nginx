@@ -36,13 +36,14 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          tags: ${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Build and deploy
         id: tagiamge
-        if: github.ref_name == 'tag'
+        if: github.ref_name == 'tags'
         uses: docker/build-push-action@v5
         with:
           context: .
