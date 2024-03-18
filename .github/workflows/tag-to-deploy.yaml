@@ -52,4 +52,4 @@ jobs:
             helm version
             kubectl version
             kubectl cluster-info 
-            helm upgrade ./helm --install --wait --set image.tag=${{ steps.meta.outputs.tags }} --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/test-app --set image.port=80
+            helm upgrade app-nginx ./helm --install --wait --set image.tag=${{ steps.meta.outputs.tags }} --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/test-app --set image.port=80
