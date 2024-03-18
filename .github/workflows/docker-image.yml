@@ -37,6 +37,8 @@ jobs:
           file: ./Dockerfile
           push: true
 
+  deploy:
+
       - name: Build and deploy
         id: tagiamge
         if: github.ref_name == 'tag'
@@ -47,9 +49,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
-
       - name: Add kubeconfig
-        need: ${{ steps.tagiamge.outputs.tags }}
+        needs: ${{ steps.tagiamge.outputs.tags }}
         uses: azure/k8s-set-context@v4
         with:
            method: kubeconfig
@@ -57,7 +58,7 @@ jobs:
 
       - name: helm deploy
         uses: koslib/helm-eks-action@master
-        need: ${{ steps.tagiamge.outputs.tags }}
+        needs: ${{ steps.tagiamge.outputs.tags }}
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIg }}
         with:
